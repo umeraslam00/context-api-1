@@ -1,0 +1,68 @@
+
+
+
+
+
+How to use Context API (example):
+
+
+1. Create a new folder named context.
+
+2. Create a file called UserContext.js. It can be anything like LoginContext, ProfileContext, etc. (inside the context folder)
+
+==================================
+import React from 'react'
+const UserContext = React.createContext()
+
+export default UserContext
+
+=================================
+Now, this has become a provider and can be used as a wrapper.
+
+
+3. Now, create a file called UserContextProvider.jsx inside the context folder.
+========================================
+import React from "react";
+import UserContext from "./UserContext"
+
+
+const UserContextProvider = ({children}) => {
+    const [user, setUser] = useState(null);
+
+   return (
+           <UserContext.Provider value={{user, setUser}}>
+            {children}
+           </UserContext.Provider>
+
+//we can pass as much data as we have in the value.
+
+)
+}
+
+export const UserContextProvider
+
+=========================================
+we can give any name. In this example, we use children.
+
+
+4. Now, we can use it in the app.js or index.js. Just need to import it and then use it in the return statement:
+
+function app() {
+    return (
+             <UserContextProvider>
+              <h1>Sample Heading</h1>
+             </UserContextProvider>
+  )
+}
+
+==============================================
+
+5. Now, create components folder.
+
+6. Now, create Login.jsx in components:
+
+============================================
+
+
+============================================
+
