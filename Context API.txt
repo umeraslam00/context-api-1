@@ -62,7 +62,86 @@ function app() {
 6. Now, create Login.jsx in components:
 
 ============================================
+import React, { useContext, useState } from 'react'
+import UserContext from '../context/UserContext'
 
+function Login() {
+
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    //we got the setUser from the UserContextProvider. We use it to set the value of User.
+    const {setUser} = useContext(UserContext)
+
+    const handleSubmit = (e) => {
+
+       //when we submit, the value goes to the url. We don't want that!
+        e.preventDefault()
+
+        setUser({username, password})
+    }
+
+
+  return (
+    <div>
+     <h2>Login</h2>
+     <input type="text" placeholder='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
+     <input type="text" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
+     <button onClick={handleSubmit}>Submit</button>
+    </div>
+  )
+}
+
+export default Login
 
 ============================================
 
+7. Now, create Profile.jsx in components:
+
+import React, { useContext } from "react"
+import UserContext from "../context/UserContext"
+
+
+const Profile = () => {
+    
+   //We get user from the UserContextProvider. We use it show data of user..
+   const {user} = useContext(UserContext)
+
+   if(!user) return <div>Please Login</div>
+   
+   return (
+    <div>
+        <h2>Profile</h2>
+        <p>Username: {user.username}</p>
+    </div>
+   )
+
+}
+
+export default Profile
+
+================================================
+
+8. This is how App.jsx looks:
+
+import Login from './components/Login'
+import Profile from './components/Profile'
+import UserContext from './context/UserContext'
+import UserContextProvider from './context/UserContextProvider'
+
+function App() {
+
+  
+
+  return (
+    <UserContextProvider>
+      <h1>Context API in React.js</h1>
+      <Login />
+      <Profile />
+
+    </UserContextProvider>
+    
+  )
+}
+
+export default App
